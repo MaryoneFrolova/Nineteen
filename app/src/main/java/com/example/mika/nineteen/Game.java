@@ -13,13 +13,16 @@ public class Game {
     private ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
     private int sizeI = 9;
 
-    public void startGame (ArrayList<Integer> startMatrix) {
-        for (int i = 0; i < startMatrix.size();) {
-            if (matrix.get(matrix.size() - 1).size() - 1 == sizeI) matrix.add(null);
-            matrix.get(matrix.size() - 1).add(startMatrix.get(i));
-            startMatrix.remove(0);
+    public void startGame (ArrayList<Integer> startMatrix, int sizeI) {
+        this.sizeI = sizeI;
 
-            if (startMatrix.size() == 0) break;
+        ArrayList<Integer> thisRow = new ArrayList<Integer>();
+        for (int i = 0; i < startMatrix.size(); i += 1) {
+            if (i % sizeI == 0 && i != 0) {
+                matrix.add(thisRow);
+                thisRow = new ArrayList<Integer>();
+            }
+            thisRow.add(startMatrix.get(i));
         }
     }
 
