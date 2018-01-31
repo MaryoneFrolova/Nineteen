@@ -128,7 +128,7 @@ public class Game {
 
     private boolean isNeedAdd () {
         for (int l = 0; l < matrix.size(); l += 1)
-            for (int k = 0; k < sizeI; k += 1)
+            for (int k = 0; k < matrix.get(l).size(); k += 1)
                 if (matrix.get(l).get(k) != 0)
                     if (findGoodNeighbor(k, l)) return false;
         return true;
