@@ -141,7 +141,7 @@ public class Game {
 
     private boolean findInLine (int i, int j) {
         if (i == sizeI - 1) {return  false;}
-        for (int l = i + 1; l < sizeI; l += 1)
+        for (int l = i + 1; l < matrix.get(j).size(); l += 1)
         {
            if (matrix.get(j).get(l) != 0) {
                if (isGood(i, j, l, j)) return true;
@@ -156,6 +156,7 @@ public class Game {
         if (j == matrix.size() - 1) return  false;
         for (int l = j + 1; l < matrix.size(); l += 1)
         {
+            if (matrix.get(l).size() - 1 < i) return false;
             if (matrix.get(l).get(i) != 0) {
                 if (isGood(i, j, i, l)) return true;
                 else return false;
@@ -169,7 +170,7 @@ public class Game {
         for (int l = j; l < matrix.size(); l += 1)
         {
             if (i == sizeI - 1) continue;
-            for (int k = (l == j ? i + 1 : 0); k < sizeI; k += 1) {
+            for (int k = (l == j ? i + 1 : 0); k < matrix.get(l).size(); k += 1) {
                 if (matrix.get(l).get(k) != 0) {
                     if (isGood(i, j, k, l)) return true;
                     else return false;
@@ -206,7 +207,7 @@ public class Game {
                     thisRow = new ArrayList<Integer>();
                 }
             }
-            if (indexX + i < sizeI - 1) matrix.get(indexY).get(whatAdd.get(i));
+            if (indexX + i < sizeI) matrix.get(indexY-1).add(whatAdd.get(i));
             else thisRow.add(whatAdd.get(i));
         }
         matrix.add(thisRow);

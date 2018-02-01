@@ -29,6 +29,7 @@ public class Main2Activity extends AppCompatActivity {
     Game a;
     int j = -1;
     int l = 0;
+    int last = sizeI;
     int  check = 999;
 
 
@@ -84,6 +85,8 @@ public class Main2Activity extends AppCompatActivity {
                             else {
                                 int current = compoundButton.getId();
                                 int res = a.stepGame(check % 1000, check / 1000, current % 1000, current / 1000);
+
+                                int result =res;
                                 switch (res) {
                                     case  1: {
                                         matrixButton.get(check / 1000).get(check % 1000).setChecked(false);
@@ -158,6 +161,8 @@ public class Main2Activity extends AppCompatActivity {
 
         }
         int o = i % sizeI;
+        if (o == 0) last = sizeI;
+        else last = o;
         if (i % sizeI != 0) {
             while (o < sizeI) {
                 ToggleButton oneBtn = matrixButton.get(j).get(o);
@@ -172,7 +177,8 @@ public class Main2Activity extends AppCompatActivity {
 
     private void addElements () {
         int indexY = matrixButton.size();
-        int indexX = matrixButton.get(indexY - 1).size();
+        int indexX = last;
+
         int i;
         int index = 0;
 
@@ -188,11 +194,11 @@ public class Main2Activity extends AppCompatActivity {
                     addRow();
                 }
             }
-            if (indexX + i < sizeI - 1) {
-                matrixButton.get(indexY).get(indexX + i).setClickable(true);
-                matrixButton.get(indexY).get(indexX + i).setText(String.valueOf(whatToAdd.get(i)));
-                matrixButton.get(indexY).get(indexX + i).setTextOn(String.valueOf(whatToAdd.get(i)));
-                matrixButton.get(indexY).get(indexX + i).setTextOff(String.valueOf(whatToAdd.get(i)));
+            if (indexX + i < sizeI) {
+                matrixButton.get(indexY-1).get(indexX + i).setClickable(true);
+                matrixButton.get(indexY-1).get(indexX + i).setText(String.valueOf(whatToAdd.get(i)));
+                matrixButton.get(indexY-1).get(indexX + i).setTextOn(String.valueOf(whatToAdd.get(i)));
+                matrixButton.get(indexY-1).get(indexX + i).setTextOff(String.valueOf(whatToAdd.get(i)));
             }
             else {
                 ToggleButton oneBtn = matrixButton.get(matrixButton.size()-1).get(index);
@@ -203,7 +209,9 @@ public class Main2Activity extends AppCompatActivity {
         }
 
         int o = (i + indexX) % sizeI;
-        if (i % sizeI != 0) {
+        if (o == 0) last = sizeI;
+        else last = o;
+        if (i + indexX % sizeI != 0) {
             while (o < sizeI) {
                 ToggleButton oneBtn = matrixButton.get(matrixButton.size()-1).get(o);
                 oneBtn.setClickable(false);
