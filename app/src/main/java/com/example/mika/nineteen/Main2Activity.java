@@ -45,8 +45,9 @@ public class Main2Activity extends AppCompatActivity {
         matrixButton = new ArrayList<ArrayList<ToggleButton>>();
 
         ArrayList<Integer> startArray = new ArrayList<Integer>();
-        startArray.addAll(Arrays.asList(1,2,3,4,5,6,7,8,9,1,1,1,2,1,3,1,4,1,5,1,6,1,7,1,8,1,9));
-        //startArray.addAll(Arrays.asList(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1));
+        //startArray.addAll((Arrays.asList(1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1)));
+        //startArray.addAll(Arrays.asList(1,2,3,4,5,6,7,8,9,1,1,1,2,1,3,1,4,1,5,1,6,1,7,1,8,1,9));
+        startArray.addAll(Arrays.asList(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1));
         a = new Game();
         a.startGame(startArray, sizeI);
         initGame(startArray);
@@ -73,76 +74,114 @@ public class Main2Activity extends AppCompatActivity {
             oneButton.setMinLines(1);
 
             oneButton.setId((j + 1) * 1000 + i);
-            oneButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (compoundButton.isChecked()) {
-                        if (check == 999)  {
-                            check = compoundButton.getId();
-                        }
-                        else if (check != 999) {
-                            if (check == compoundButton.getId()) check = 999;
-                            else {
-                                int current = compoundButton.getId();
-                                int res = a.stepGame(check % 1000, check / 1000, current % 1000, current / 1000);
+            try {
+                oneButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        if (compoundButton.isChecked()) {
+                            if (check == 999) {
+                                check = compoundButton.getId();
+                            } else if (check != 999) {
+                                if (check == compoundButton.getId()) check = 999;
+                                else {
+                                    int current = compoundButton.getId();
+                                    int res = a.stepGame(check % 1000, check / 1000, current % 1000, current / 1000);
 
-                                int result =res;
-                                switch (res) {
-                                    case  1: {
-                                        matrixButton.get(check / 1000).get(check % 1000).setChecked(false);
-                                        check = compoundButton.getId();
-                                        break;
+                                    int result = res;
+                                    switch (res) {
+                                        case 1: {
+                                            matrixButton.get(check / 1000).get(check % 1000).setChecked(false);
+                                            check = compoundButton.getId();
+                                            break;
+                                        }
+                                        case 2: {
+                                            matrixButton.get(check / 1000).get(check % 1000).setBackgroundResource(R.drawable.cros);
+                                            matrixButton.get(check / 1000).get(check % 1000).setClickable(false);
+                                            matrixButton.get(check / 1000).get(check % 1000).setChecked(false);
+                                            compoundButton.setBackgroundResource(R.drawable.cros);
+                                            compoundButton.setChecked(false);
+                                            compoundButton.setClickable(false);
+                                            check = 999;
+                                            whatToAdd = a.getWhatAdd();
+                                            addElements();
+
+
+                                            int iterCount = 0;
+                                            while (a.isNeedAdd()) {
+                                                a.addNumbers();
+                                                whatToAdd = a.getWhatAdd();
+                                                addElements();
+                                                iterCount = whatToAdd.size();
+                                                if (iterCount > 500) {
+                                                    Toast.makeText(getApplicationContext(), "So hard game. I think you have not any chance to win", Toast.LENGTH_SHORT).show();
+                                                    break;
+                                                }
+                                            }
+
+                                            ArrayList<Integer> hideRow = a.howMuch();
+                                            if (hideRow.size() != 0)
+                                                for (int r = 0; r < hideRow.size(); r += 1 )
+                                                {
+                                                    TableRow trr = (TableRow) findViewById(1000000*(hideRow.get(r)+1));
+                                                    trr.setVisibility(View.GONE);
+                                                }
+                                            break;
+
+                                        }
+                                        case 3: {
+                                            matrixButton.get(check / 1000).get(check % 1000).setBackgroundResource(R.drawable.cros);
+                                            matrixButton.get(check / 1000).get(check % 1000).setClickable(false);
+                                            matrixButton.get(check / 1000).get(check % 1000).setChecked(false);
+                                            compoundButton.setBackgroundResource(R.drawable.cros);
+                                            compoundButton.setChecked(false);
+                                            compoundButton.setClickable(false);
+                                            check = 999;
+                                            Toast.makeText(getApplicationContext(), "YOU WIN!!!", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        }
+                                        case 4: {
+                                            matrixButton.get(check / 1000).get(check % 1000).setBackgroundResource(R.drawable.cros);
+                                            matrixButton.get(check / 1000).get(check % 1000).setClickable(false);
+                                            matrixButton.get(check / 1000).get(check % 1000).setChecked(false);
+                                            compoundButton.setBackgroundResource(R.drawable.cros);
+                                            compoundButton.setChecked(false);
+                                            compoundButton.setClickable(false);
+                                            check = 999;
+
+                                            ArrayList<Integer> hideRow = a.howMuch();
+                                            if (hideRow.size() != 0)
+                                                for (int r = 0; r < hideRow.size(); r += 1 )
+                                                {
+
+                                                    TableRow trr = (TableRow) findViewById(1000000*(hideRow.get(r)+1));
+                                                    trr.setVisibility(View.GONE);
+                                                }
+                                            break;
+                                        }
                                     }
-                                    case 2: {
-                                        matrixButton.get(check / 1000).get(check % 1000).setBackgroundResource(R.drawable.cros);
-                                        matrixButton.get(check / 1000).get(check % 1000).setClickable(false);
-                                        matrixButton.get(check / 1000).get(check % 1000).setChecked(false);
-                                        compoundButton.setBackgroundResource(R.drawable.cros);
-                                        compoundButton.setChecked(false);
-                                        compoundButton.setClickable(false);
-                                        check = 999;
-                                        whatToAdd = a.getWhatAdd();
-                                        addElements();
-                                        break;
-                                    }
-                                    case 3: {
-                                        matrixButton.get(check / 1000).get(check % 1000).setBackgroundResource(R.drawable.cros);
-                                        matrixButton.get(check / 1000).get(check % 1000).setClickable(false);
-                                        matrixButton.get(check / 1000).get(check % 1000).setChecked(false);
-                                        compoundButton.setBackgroundResource(R.drawable.cros);
-                                        compoundButton.setChecked(false);
-                                        compoundButton.setClickable(false);
-                                        check = 999;
-                                        Toast.makeText(getApplicationContext(), "YOU WIN!!!" , Toast.LENGTH_SHORT).show();
-                                        break;
-                                    }
-                                    case 4: {
-                                        matrixButton.get(check / 1000).get(check % 1000).setBackgroundResource(R.drawable.cros);
-                                        matrixButton.get(check / 1000).get(check % 1000).setClickable(false);
-                                        matrixButton.get(check / 1000).get(check % 1000).setChecked(false);
-                                        compoundButton.setBackgroundResource(R.drawable.cros);
-                                        compoundButton.setChecked(false);
-                                        compoundButton.setClickable(false);
-                                        check = 999;
-                                        break;
-                                    }
+
                                 }
-
+                            }
+                        } else {
+                            if (check != 999) {
+                                if (check == compoundButton.getId()) check = 999;
                             }
                         }
                     }
-                    else {
-                        if (check != 999) {
-                            if (check == compoundButton.getId()) check = 999;}
-                    }
-                }
-            });
+                });
+            }
+            catch (RuntimeException ecs) {
+                Toast.makeText(getApplicationContext(), "So hard game! I stop it!", Toast.LENGTH_SHORT).show();
+                break;
+            }
             rowButton.add(oneButton);
             tr.addView(oneButton);
         }
+        tr.setId(( j + 2 ) * 1000000);
         tb.addView(tr);
         matrixButton.add(rowButton);
     }
+
 
 
     protected void initGame (ArrayList<Integer> arr) {

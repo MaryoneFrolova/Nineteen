@@ -126,7 +126,7 @@ public class Game {
         return true;
     }
 
-    private boolean isNeedAdd () {
+    public boolean isNeedAdd () {
         for (int l = 0; l < matrix.size(); l += 1)
             for (int k = 0; k < matrix.get(l).size(); k += 1)
                 if (matrix.get(l).get(k) != 0)
@@ -180,7 +180,7 @@ public class Game {
         return false;
     }
 
-    private void addNumbers () {
+    public void addNumbers () {
         whatAdd.removeAll(whatAdd);
 
         for (int j = 0; j < matrix.size(); j += 1) {
@@ -210,8 +210,21 @@ public class Game {
             if (indexX + i < sizeI) matrix.get(indexY-1).add(whatAdd.get(i));
             else thisRow.add(whatAdd.get(i));
         }
-        matrix.add(thisRow);
+        if (thisRow.size() != 0)        matrix.add(thisRow);
 
+    }
+
+    public ArrayList<Integer> howMuch() {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        for (int i = 0; i < matrix.size(); i += 1) {
+            if (matrix.get(i).size() != sizeI) continue;
+            int sum = 0;
+            for (int j = 0; j < matrix.get(i).size(); j += 1){
+                sum += matrix.get(i).get(j);
+            }
+            if (sum == 0) res.add(i);
+        }
+        return res;
     }
 
     public ArrayList<Integer> getWhatAdd() {
