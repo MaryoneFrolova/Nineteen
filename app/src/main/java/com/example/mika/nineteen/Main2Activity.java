@@ -46,8 +46,8 @@ public class Main2Activity extends AppCompatActivity {
 
         ArrayList<Integer> startArray = new ArrayList<Integer>();
         //startArray.addAll((Arrays.asList(1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1)));
-        //startArray.addAll(Arrays.asList(1,2,3,4,5,6,7,8,9,1,1,1,2,1,3,1,4,1,5,1,6,1,7,1,8,1,9));
-        startArray.addAll(Arrays.asList(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1));
+        startArray.addAll(Arrays.asList(1,2,3,4,5,6,7,8,9,1,1,1,2,1,3,1,4,1,5,1,6,1,7,1,8,1,9));
+        //startArray.addAll(Arrays.asList(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1));
         a = new Game();
         a.startGame(startArray, sizeI);
         initGame(startArray);
