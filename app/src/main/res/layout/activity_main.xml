@@ -5,22 +5,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.mika.nineteen.MainActivity">
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="16dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp"
+    tools:context="ru.maryonegames.android.nineteen.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/game"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/logo" />
+
+    <ImageButton
+        android:id="@+id/btngame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:onClick="gameBtn"
+        style="@style/ButtonStyle"
+        android:src="@drawable/play"
+        android:scaleType="centerInside"
         android:text="GAME" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btncont"
+            style="@style/ButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:onClick="contGame"
+            android:text="CONTINUE"
+            android:src="@drawable/cont"
+            android:scaleType="centerInside"
+            android:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/btnset"
+            style="@style/ButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:onClick="settAct"
+            android:scaleType="fitCenter"
+            android:src="@drawable/sett"
+            android:text="SETTINGS"
+            android:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/btnrec"
+            style="@style/ButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:onClick="infoBtn"
+            android:scaleType="centerInside"
+            android:src="@drawable/info"
+            android:text="RECORDS"
+            android:visibility="visible" />
+
+    </LinearLayout>
 
 </LinearLayout>

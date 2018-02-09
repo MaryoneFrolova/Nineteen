@@ -1,9 +1,10 @@
-package com.example.mika.nineteen;
+package ru.maryonegames.android.nineteen;
 
 import android.util.Pair;
 
 import java.io.Console;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Mika on 28.01.2018.
@@ -14,8 +15,10 @@ public class Game {
     private ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
     private int sizeI = 9;
     private ArrayList<Integer> whatAdd = new ArrayList<>();
+    private ArrayList<Pair<Pair<Integer,Integer>,Pair<Integer,Integer>>> hints;
 
     public void startGame (ArrayList<Integer> startMatrix, int sizeI) {
+
         this.sizeI = sizeI;
         int i;
         ArrayList<Integer> thisRow = new ArrayList<Integer>();
@@ -169,7 +172,7 @@ public class Game {
     private boolean findNext (int i, int j) {
         for (int l = j; l < matrix.size(); l += 1)
         {
-            if (i == sizeI - 1) continue;
+            //if (i == sizeI - 1) continue;
             for (int k = (l == j ? i + 1 : 0); k < matrix.get(l).size(); k += 1) {
                 if (matrix.get(l).get(k) != 0) {
                     if (isGood(i, j, k, l)) return true;
@@ -227,7 +230,83 @@ public class Game {
         return res;
     }
 
+    public int leftNumbers() {
+        int res = 0;
+        for (int i = 0; i < matrix.size(); i += 1) {
+            for (int j = 0; j < matrix.get(i).size(); j += 1){
+                if (matrix.get(i).get(j) != 0) res += 1;
+            }
+        }
+        return res;
+    }
+
     public ArrayList<Integer> getWhatAdd() {
         return whatAdd;
+    }
+
+    public Pair<Pair<Integer,Integer>, Pair<Integer,Integer>> getHints() {
+        hints = new ArrayList<Pair<Pair<Integer,Integer>,Pair<Integer,Integer>>>();
+        for (int l = 0; l < matrix.size(); l += 1)
+            for (int k = 0; k < matrix.get(l).size(); k += 1)
+                if (matrix.get(l).get(k) != 0)
+                {findInLine2(k,l);
+                findInRow2(k,l);
+                findNext2(k,l);}
+
+
+
+        Random random = new Random();
+        Pair<Pair<Integer,Integer>,Pair<Integer,Integer>> hint = hints.get(random.nextInt(hints.size()));
+        return hint;
+    }
+
+    private boolean findInLine2 (int i, int j) {
+        if (i == sizeI - 1) {return  false;}
+        for (int l = i + 1; l < matrix.get(j).size(); l += 1)
+        {
+            if (matrix.get(j).get(l) != 0) {
+                if (isGood(i, j, l, j))
+                {hints.add(Pair.create(Pair.create(i,j),Pair.create(l,j)));
+                return true;}
+
+                else return false;
+            }
+
+        }
+        return false;
+    }
+
+    private boolean findInRow2 (int i, int j) {
+        if (j == matrix.size() - 1) return  false;
+        for (int l = j + 1; l < matrix.size(); l += 1)
+        {
+            if (matrix.get(l).size() - 1 < i) return false;
+            if (matrix.get(l).get(i) != 0) {
+                if (isGood(i, j, i, l))
+                {hints.add(Pair.create(Pair.create(i,j),Pair.create(i,l)));
+                    return true;}
+                else return false;
+            }
+
+        }
+        return false;
+    }
+
+    private boolean findNext2 (int i, int j) {
+        for (int l = j; l < matrix.size(); l += 1)
+        {
+            //if (i == sizeI - 1);
+
+            for (int k = (l == j ? i + 1 : 0); k < matrix.get(l).size(); k += 1) {
+                if (matrix.get(l).get(k) != 0) {
+                    if (isGood(i, j, k, l)) {
+                        hints.add(Pair.create(Pair.create(i, j), Pair.create(k, l)));
+                        return true;
+                    } else return false;
+                }
+            }
+
+        }
+        return false;
     }
 }

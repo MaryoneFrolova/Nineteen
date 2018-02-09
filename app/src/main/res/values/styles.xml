@@ -8,4 +8,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ButtonStyle" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:textSize"> 32sp </item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColorHighlight">#b1113e</item>
+        <item name="android:textColorPrimary">#f51354</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="colorButtonNormal">#b1113e</item>
+        <item name="colorControlHighlight">#f51354</item>
+
+    </style>
 </resources>
